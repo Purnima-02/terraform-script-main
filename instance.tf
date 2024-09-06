@@ -15,7 +15,7 @@ resource "aws_vpc" "demovpc" {
 resource "aws_subnet" "public-subnet-1" {
   vpc_id            = aws_vpc.demovpc.id
   cidr_block        = var.subnet_cidr
-  availability_zone = "ap-south-1a"
+  availability_zone = "us-east-1"
   tags = {
     Name = "web subnet 1"
   }
@@ -26,7 +26,7 @@ resource "aws_subnet" "public-subnet-1" {
 resource "aws_subnet" "public-subnet-2" {
   vpc_id            = aws_vpc.demovpc.id
   cidr_block        = var.subnet1_cidr
-  availability_zone = "ap-south-1b"
+  availability_zone = "us-east-1"
   tags = {
     Name = "web subnet 2"
   }
@@ -75,9 +75,9 @@ resource "aws_route_table_association" "rt2" {
 #creating 1st ec2 instance in public subnet
 
 resource "aws_instance" "demoinstance" {
-  ami                         = "ami-0a7cf821b91bcccbc"
-  instance_type               = "t2.micro"
-  key_name                    = "python"
+  ami                         = "data.aws_ami.ubuntu.id"
+  instance_type               = "t2.midium"
+  key_name                    = "ubuntu sai"
   vpc_security_group_ids      = ["${aws_security_group.demosg.id}"]
   subnet_id                   = aws_subnet.public-subnet-1.id
   associate_public_ip_address = true
